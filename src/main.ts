@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
-  // @ts-ignore
 } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 

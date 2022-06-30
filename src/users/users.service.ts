@@ -20,6 +20,7 @@ export class UsersService {
   async findAll(): Promise<Users> {
     let users = await this.usersRepository.find();
     let count = await this.count();
+
     return new Users(users, count);
   }
 
@@ -33,8 +34,10 @@ export class UsersService {
 
   async update(id: number, updateUserInput: UpdateUserInput) {
     let userToUpdate = await this.usersRepository.findOneBy({ id });
+
     if (updateUserInput.name) userToUpdate.name = updateUserInput.name;
     if (updateUserInput.height) userToUpdate.height = updateUserInput.height;
+
     return this.usersRepository.save(userToUpdate);
   }
 

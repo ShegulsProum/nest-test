@@ -11,6 +11,7 @@ type User {
   height: Float
 }
 
+"""A user"""
 type Users {
   """Users"""
   users: [User!]!
@@ -28,20 +29,23 @@ type Mutation {
   removeUser(id: Int!): User!
 }
 
+"""Type for creating a user"""
 input CreateUserInput {
-  """Id of user"""
-  id: Int
-
   """User's name"""
   name: String
+
+  """Height of user"""
   height: Float
 }
 
+"""Type for updating a user"""
 input UpdateUserInput {
-  """Id of user"""
-  id: Int
-
   """User's name"""
   name: String
+
+  """Height of user"""
   height: Float
+
+  """Id of user"""
+  id: Int!
 }

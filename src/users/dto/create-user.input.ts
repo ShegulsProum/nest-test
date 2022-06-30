@@ -1,13 +1,10 @@
-import { Field, Float, InputType, Int } from '@nestjs/graphql';
+import { Field, Float, InputType } from '@nestjs/graphql';
 
-@InputType()
+@InputType({ description: 'Type for creating a user' })
 export class CreateUserInput {
-  @Field(() => Int, { description: 'Id of user', nullable: true })
-  id!: number;
-
   @Field({ nullable: true, description: "User's name" })
   name: string;
 
-  @Field(() => Float, { nullable: true })
+  @Field(() => Float, { description: 'Height of user', nullable: true })
   height: number;
 }

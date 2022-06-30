@@ -16,7 +16,7 @@ export class UsersResolver {
 
   @Query(() => Users, { name: 'allUsers' })
   findAll() {
-    return this.usersService.findAll();
+    return this.usersService.findAllWithCount();
   }
 
   @Query(() => User, { name: 'user' })

@@ -13,14 +13,12 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  count(): Promise<number> {
-    return this.usersRepository.count();
+  async findAll(): Promise<User[]> {
+    return this.usersRepository.find();
   }
 
-  async findAll(): Promise<Users> {
-    let users = await this.usersRepository.find();
-    let count = await this.count();
-
+  async findAllWithCount(): Promise<Users> {
+    let [users, count] = await this.usersRepository.findAndCount();
     return new Users(users, count);
   }
 
@@ -43,5 +41,9 @@ export class UsersService {
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  count(): Promise<number> {
+    return this.usersRepository.count();
   }
 }

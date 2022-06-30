@@ -16,7 +16,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Bookstore')
     .setDescription('The bookstore API description')
-    .setVersion('1.0')
+    .setVersion('1.1')
     .addTag('books')
     .addTag('users')
     .build();

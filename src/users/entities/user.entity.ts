@@ -9,10 +9,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Book } from '../../books/entities/book.entity';
 
 @ObjectType({ description: "System's user" })
 @Entity()
@@ -23,14 +25,22 @@ export class User {
   id!: string;
 
   @Field({ nullable: true, description: "User's name" })
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty()
   name: string;
 
   @Field(() => Float, { description: "User's height", nullable: true })
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty()
   height: number;
+
+  @ApiProperty({ type: () => [Book] })
+  @Field(() => [Book], {
+    nullable: true,
+    description: "Book's year of publication",
+  })
+  @OneToMany(() => Book, (book) => book.owner)
+  ownedBooks: Book[];
 
   @Field(() => GraphQLISODateTime, {
     description: 'Time of creation',
@@ -38,7 +48,7 @@ export class User {
   })
   @CreateDateColumn()
   @ApiProperty()
-  created_at?: Date;
+  created_at: Date;
 
   @Field(() => GraphQLISODateTime, {
     description: 'Time of update',
@@ -46,5 +56,5 @@ export class User {
   })
   @UpdateDateColumn()
   @ApiProperty()
-  updated_at?: Date;
+  updated_at: Date;
 }

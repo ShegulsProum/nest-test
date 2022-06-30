@@ -5,12 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './entities/book.entity';
 import { Books } from './entities/books';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class BooksService {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   findAll() {
@@ -39,6 +42,11 @@ export class BooksService {
 
     if (updateBookDto.yearOfPublication)
       bookToUpdate.yearOfPublication = updateBookDto.yearOfPublication;
+
+    if (updateBookDto.ownerId)
+      bookToUpdate.owner = await this.userRepository.findOneBy({
+        id: updateBookDto.ownerId,
+      });
 
     return this.bookRepository.save(bookToUpdate);
   }

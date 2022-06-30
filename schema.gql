@@ -2,16 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""System's user"""
 type User {
   """Id of user"""
-  id: Int!
+  id: ID!
 
   """User's name"""
   name: String
+
+  """User's height"""
   height: Float
+
+  """Time of creation"""
+  created_at: DateTime
+
+  """Time of update"""
+  updated_at: DateTime
 }
 
-"""A user"""
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Array of users"""
 type Users {
   """Users"""
   users: [User!]!
@@ -20,17 +34,17 @@ type Users {
 
 type Query {
   allUsers: Users!
-  user(id: Int!): User!
+  user(id: ID!): User!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  createUser(createUserInput: CreateUserDto!): User!
+  updateUser(updateUserInput: UpdateUserDto!): User!
+  removeUser(id: ID!): User!
 }
 
 """Type for creating a user"""
-input CreateUserInput {
+input CreateUserDto {
   """User's name"""
   name: String
 
@@ -39,7 +53,7 @@ input CreateUserInput {
 }
 
 """Type for updating a user"""
-input UpdateUserInput {
+input UpdateUserDto {
   """User's name"""
   name: String
 
@@ -47,5 +61,5 @@ input UpdateUserInput {
   height: Float
 
   """Id of user"""
-  id: Int!
+  id: ID!
 }

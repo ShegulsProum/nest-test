@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,15 +24,15 @@ export class UsersService {
     return new Users(users, count);
   }
 
-  findOne(id: number): Promise<User> {
+  findOne(id: string): Promise<User> {
     return this.usersRepository.findOneBy({ id });
   }
 
-  create(createUserInput: CreateUserInput) {
+  create(createUserInput: CreateUserDto) {
     return this.usersRepository.save(createUserInput);
   }
 
-  async update(id: number, updateUserInput: UpdateUserInput) {
+  async update(id: string, updateUserInput: UpdateUserDto) {
     let userToUpdate = await this.usersRepository.findOneBy({ id });
 
     if (updateUserInput.name) userToUpdate.name = updateUserInput.name;
@@ -41,7 +41,7 @@ export class UsersService {
     return this.usersRepository.save(userToUpdate);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }
 }

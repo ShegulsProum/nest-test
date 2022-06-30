@@ -1,7 +1,7 @@
 import { Field, Float, InputType } from '@nestjs/graphql';
 
 @InputType({ description: 'Type for creating a user' })
-export class CreateUserInput {
+export class CreateUserDto {
   @Field({ nullable: true, description: "User's name" })
   name: string;
 

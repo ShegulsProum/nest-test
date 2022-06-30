@@ -32,15 +32,46 @@ type Users {
   count: Int!
 }
 
+type Book {
+  id: ID!
+
+  """Book's name"""
+  name: String
+
+  """Book's description"""
+  description: String
+
+  """Book's year of publication"""
+  yearOfPublication: Int
+
+  """Time of creation"""
+  created_at: DateTime
+
+  """Time of update"""
+  updated_at: DateTime
+}
+
+"""Array of books"""
+type Books {
+  """Books"""
+  books: [Book!]!
+  count: Int!
+}
+
 type Query {
   allUsers: Users!
   user(id: ID!): User!
+  allBooks: Books!
+  book(id: ID!): Book!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserDto!): User!
   updateUser(updateUserInput: UpdateUserDto!): User!
   removeUser(id: ID!): User!
+  createBook(createBookInput: CreateBookDto!): Book!
+  updateBook(updateBookInput: UpdateBookDto!): Book!
+  removeBook(id: ID!): Book!
 }
 
 """Type for creating a user"""
@@ -61,5 +92,30 @@ input UpdateUserDto {
   height: Float
 
   """Id of user"""
+  id: ID!
+}
+
+"""Type for creating a book"""
+input CreateBookDto {
+  """Book's name"""
+  name: String
+
+  """Book's description"""
+  description: String
+
+  """Book's year of publication"""
+  yearOfPublication: Int
+}
+
+"""Type for updating a book"""
+input UpdateBookDto {
+  """Book's name"""
+  name: String
+
+  """Book's description"""
+  description: String
+
+  """Book's year of publication"""
+  yearOfPublication: Int
   id: ID!
 }

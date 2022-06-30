@@ -4,6 +4,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './entities/book.entity';
+import { Books } from './entities/books';
 
 @Injectable()
 export class BooksService {
@@ -14,6 +15,11 @@ export class BooksService {
 
   findAll() {
     return this.bookRepository.find();
+  }
+
+  async findAllWithCount(): Promise<Books> {
+    let [books, count] = await this.bookRepository.findAndCount();
+    return new Books(books, count);
   }
 
   findOne(id: string) {

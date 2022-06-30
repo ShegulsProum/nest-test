@@ -24,17 +24,19 @@ export class BooksController {
   }
 
   @Get()
-  @ApiResponse({ type: Book })
+  @ApiResponse({ type: [Book] })
   findAll() {
     return this.booksService.findAll();
   }
 
   @Get(':id')
+  @ApiResponse({ type: Book })
   findOne(@Param('id') id: string) {
     return this.booksService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiResponse({ type: Book })
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(id, updateBookDto);
   }
